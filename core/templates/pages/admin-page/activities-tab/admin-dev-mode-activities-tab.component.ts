@@ -17,15 +17,15 @@
  * is in developer mode.
  */
 
-import {Component, Output, OnInit, EventEmitter} from '@angular/core';
+import { Component, Output, OnInit, EventEmitter } from '@angular/core';
 
-import {AdminBackendApiService} from 'domain/admin/admin-backend-api.service';
-import {AdminDataService} from 'pages/admin-page/services/admin-data.service';
-import {AdminTaskManagerService} from 'pages/admin-page/services/admin-task-manager.service';
-import {SkillSummary} from 'domain/skill/skill-summary.model';
-import {CreatorTopicSummary} from 'domain/topic/creator-topic-summary.model';
-import {WindowRef} from 'services/contextual/window-ref.service';
-import {Story} from 'domain/story/story.model';
+import { AdminBackendApiService } from 'domain/admin/admin-backend-api.service';
+import { AdminDataService } from 'pages/admin-page/services/admin-data.service';
+import { AdminTaskManagerService } from 'pages/admin-page/services/admin-task-manager.service';
+import { SkillSummary } from 'domain/skill/skill-summary.model';
+import { CreatorTopicSummary } from 'domain/topic/creator-topic-summary.model';
+import { WindowRef } from 'services/contextual/window-ref.service';
+import { Story } from 'domain/story/story.model';
 
 @Component({
   selector: 'oppia-admin-dev-mode-activities-tab',
@@ -60,7 +60,7 @@ export class AdminDevModeActivitiesTabComponent implements OnInit {
     private adminDataService: AdminDataService,
     private adminTaskManagerService: AdminTaskManagerService,
     private windowRef: WindowRef
-  ) {}
+  ) { }
 
   reloadExploration(explorationId: string): void {
     if (this.adminTaskManagerService.isTaskRunning()) {
@@ -99,12 +99,12 @@ export class AdminDevModeActivitiesTabComponent implements OnInit {
     }
     this.setStatusMessage.emit(
       'Reloaded ' +
-        this.demoExplorationIds.length +
-        ' explorations: ' +
-        numSucceeded +
-        ' succeeded, ' +
-        numFailed +
-        ' failed.'
+      this.demoExplorationIds.length +
+      ' explorations: ' +
+      numSucceeded +
+      ' succeeded, ' +
+      numFailed +
+      ' failed.'
     );
     this.adminTaskManagerService.finishTask();
   }
@@ -284,7 +284,7 @@ export class AdminDevModeActivitiesTabComponent implements OnInit {
   generateDummyChapters(selectedStoryForChapter: string): void {
     const selectedIndex = Number(selectedStoryForChapter);
     let selectedStory = this.storyList[selectedIndex];
-    let id = selectedStory._id;
+    let id = selectedStory.getId();
     this.adminTaskManagerService.startTask();
     this.setStatusMessage.emit('Processing...');
     this.adminBackendApiService

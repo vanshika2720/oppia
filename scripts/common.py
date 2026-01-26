@@ -75,6 +75,9 @@ ELASTICSEARCH_VERSION = '8.17.0'
 RELEASE_BRANCH_NAME_PREFIX = 'release-'
 CURR_DIR = os.path.abspath(os.getcwd())
 OPPIA_TOOLS_DIR = os.path.join(CURR_DIR, os.pardir, 'oppia_tools')
+if not os.path.isdir(OPPIA_TOOLS_DIR):
+    OPPIA_TOOLS_DIR = os.path.join(CURR_DIR, 'oppia_tools')
+
 OPPIA_TOOLS_DIR_ABS_PATH = os.path.abspath(OPPIA_TOOLS_DIR)
 THIRD_PARTY_DIR = os.path.join(CURR_DIR, 'third_party')
 THIRD_PARTY_PYTHON_LIBS_DIR = os.path.join(THIRD_PARTY_DIR, 'python_libs')
@@ -110,10 +113,19 @@ REDIS_CLI_PATH = os.path.join(
 CLOUD_DATASTORE_EMULATOR_DATA_DIR = os.path.join(
     CURR_DIR, os.pardir, 'cloud_datastore_emulator_cache'
 )
+if not os.path.isdir(CLOUD_DATASTORE_EMULATOR_DATA_DIR):
+    CLOUD_DATASTORE_EMULATOR_DATA_DIR = os.path.join(
+        CURR_DIR, 'cloud_datastore_emulator_cache'
+    )
+
 # Directory for storing/fetching data related to the Firebase emulator.
 FIREBASE_EMULATOR_CACHE_DIR = os.path.join(
     CURR_DIR, os.pardir, 'firebase_emulator_cache'
 )
+if not os.path.isdir(FIREBASE_EMULATOR_CACHE_DIR):
+    FIREBASE_EMULATOR_CACHE_DIR = os.path.join(
+        CURR_DIR, 'firebase_emulator_cache'
+    )
 
 ES_PATH = os.path.join(
     OPPIA_TOOLS_DIR, 'elasticsearch-%s' % ELASTICSEARCH_VERSION
@@ -282,7 +294,7 @@ def require_cwd_to_be_oppia(allow_deploy_dir: bool = False) -> None:
     If allow_deploy_dir is True, this also allows the cwd to be a directory
     called 'deploy-*' which is a sibling of the oppia/ directory.
     """
-    is_oppia_dir = os.getcwd().endswith('oppia')
+    is_oppia_dir = os.getcwd().endswith('oppia') or os.path.exists(FECONF_PATH)
 
     current_dirname = os.path.basename(os.path.normpath(os.getcwd()))
     is_deploy_dir = current_dirname.startswith('deploy-') and os.path.isdir(

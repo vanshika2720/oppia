@@ -36,11 +36,11 @@ YamlIndexesDict = Dict[
     str, List[Dict[str, Union[str, Dict[str, str], List[Dict[str, str]]]]]
 ]
 
+from scripts import common
+
 INDEX_YAML_PATH = os.path.join(os.getcwd(), 'index.yaml')
 WEB_INF_INDEX_XML_PATH = os.path.join(
-    os.getcwd(),
-    os.pardir,
-    'cloud_datastore_emulator_cache',
+    common.CLOUD_DATASTORE_EMULATOR_DATA_DIR,
     'WEB-INF',
     'appengine-generated',
     'datastore-indexes-auto.xml',
